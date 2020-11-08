@@ -1,0 +1,109 @@
+/**
+ * Functions to add dropdown caret at the end of navigation menu item with children
+ * and code to remove white between navigation menu and header image.
+ */
+
+(function($){
+    /**
+      * Add Carate-down at the end of menu item, if the menu item has children
+      */
+    function initMainNavigation( container ) {
+        // Add dropdown toggle that displays child menu items.
+        var dropdownToggle = $( '<button />', {
+            'class': 'dropdown-toggle',
+            'aria-expanded': false
+        } ).append( $( '<span />', {
+            'class': 'screen-reader-text',
+            text: screenReaderText.expand
+        } ) );
+
+        container.find( '.menu-item-has-children > a' ).after( dropdownToggle );
+
+        // Toggle buttons and submenu items with active children menu items.
+        container.find( '.current-menu-ancestor > button' ).addClass( 'toggled-on' );
+        container.find( '.current-menu-ancestor > .sub-menu' ).addClass( 'toggled-on' );
+
+        // Add menu items with submenus to aria-haspopup="true".
+        container.find( '.menu-item-has-children' ).attr( 'aria-haspopup', 'true' );
+
+        container.find( '.dropdown-toggle' ).click( function( e ) {
+            var _this            = $( this ),
+                screenReaderSpan = _this.find( '.screen-reader-text' );
+
+            e.preventDefault();
+            _this.toggleClass( 'toggled-on' );
+            _this.next( '.children, .sub-menu' ).toggleClass( 'toggled-on' );
+
+            // jscs:disable
+            _this.attr( 'aria-expanded', _this.attr( 'aria-expanded' ) === 'false' ? 'true' : 'false' );
+            // jscs:enable
+            screenReaderSpan.text( screenReaderSpan.text() === screenReaderText.expand ? screenReaderText.collapse : screenReaderText.expand );
+        } );
+    }
+    initMainNavigation( $( '.main-navigation' ) );
+
+    /**
+      * Remove white space between menu and header image.
+      */
+    var setHeight = function (h) {	
+    	height = h;
+        $("#cc_spacer").css("height", height + "px");
+	}
+	$(window).resize(function(){
+		setHeight($("#navigation_menu").height());
+	});
+	$(window).ready(function(){
+		setHeight($("#navigation_menu").height());
+	});
+
+    /**
+     * Hide or show search box.
+     */
+     
+    $('.main-navigation').on('click tap', '#desktop-search-icon',function ( event ) {
+        event.stopPropagation();
+        $('#navbar-search-box').toggleClass('display-searchbox');
+        if( $('.main-navigation .menu-item-search i').hasClass($toggle_class) ) {
+            $('.main-navigation .menu-item-search i').removeClass($toggle_class);
+            if($toggle_class === 'fa-search') {
+                $toggle_class = 'fa-times';
+            } else {
+                $toggle_class = 'fa-search';
+            }
+            $('.menu-item-search i').addClass($toggle_class);
+        }
+    }); 
+    $toggle_class = 'fa-search';
+    $('#desktop-search-icon').on('click tap', function ( event ) {
+        event.stopPropagation();
+        $('#navbar-search-box').toggleClass('display-searchbox');
+        if( $('.menu-item-search i').hasClass($toggle_class) ) {
+            $('.menu-item-search i').removeClass($toggle_class);
+            if($toggle_class === 'fa-search') {
+                $toggle_class = 'fa-times';
+            } else {
+                $toggle_class = 'fa-search';
+            }
+            $('.menu-item-search i').addClass($toggle_class);
+        }
+    });
+})(jQuery);
+
+
+/*** Go To Top Button ***/
+//When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("goToTop").style.display = "block";
+    } else {
+        document.getElementById("goToTop").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Chrome, Safari and Opera
+    document.documentElement.scrollTop = 0; // For IE and Firefox
+}
