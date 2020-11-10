@@ -68,7 +68,7 @@
      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
          <div class="bg-white py-2 collapse-inner rounded">
              <h6 class="collapse-header">list:</h6>
-             <a class="collapse-item" href="buttons.html"><span class="fa fa-user"></span>&nbsp&nbspProfile</a>
+             <a class="collapse-item" href="<?php echo base_url(); ?>profile"><span class="fa fa-user"></span>&nbsp&nbspProfile</a>
          </div>
      </div>
  </li>

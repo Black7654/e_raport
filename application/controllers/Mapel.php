@@ -20,37 +20,44 @@ class Mapel extends CI_Controller
         $id_mapel = $this->input->post('id_mapel', true);
         $data = $this->MapelModel->getById($id_mapel);
         $result = $data->row();
+        if (!(strcmp($result->aktif, "yes"))) {
+            $aktif = "selected";
+            $tidak = "";
+        } else {
+            $aktif = "";
+            $tidak = "selected";
+        }
+
         echo '
         <!-- content modal -->
         <form action="<?php echo base_url(); ?>mapel/simpan" enctype="multipart/form-data" method="POST">
-            <input type="hidden" class="form-control" id="id_mapel" name="id_mapel" value=' . $result->id_mapel . '>
+                    <input type="hidden" class="form-control" id="id_mapel" name="id_mapel" value=' . $result->id_mapel . '>
 
-            <div class="form-group">
-                <label for="exampleInputMapel1">Nama Mata Pelajaran</label>
-                <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" value=' . $result->id_mapel . '>
-            </div>
+                    <div class="form-group">
+                        <label for="exampleInputNamaKelas1">Mata Pelajaran</label>
+                        <input type="text" class="form-control" id="nama_kelas" name="nama_kelas" value=' . $result->id_mapel . '>
+                    </div>
 
-            <div class="form-group">
-                <label for="exampleInputGuru1">Guru</label>
-                <input type="text" class="form-control" id="guru" name="guru" value=' . $result->id_mapel . '>
-            </div>
+                    <div class="form-group">
+                        <label for="exampleInputGuru1">Mata Pelajaran</label>
+                        <input type="text" class="form-control" id="guru" name="guru" value=' . $result->id_mapel . '>
+                    </div>
 
-            <div class="form-group">
-                <label for="exampleInputAktif1">Aktif</label>
-                <select class="form-control" name="aktif" id="aktif">
-                    <option value=""><?php echo $row->aktif; ?></option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
+                    <div class="form-group">
+                        <label for="exampleInputAktif1">Aktif</label>
+                        <select class="form-control" name="aktif" id="aktif">
+                            <option value="yes" ' . $aktif . '>Yes</option>
+                            <option value="no" ' . $tidak . '>No</option>
+                        </select>
+                    </div>
 
-            <!-- end content modal -->
-   
+                    <!-- end content modal -->
+            
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span>&nbspSimpan</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>&nbspClose</button>
             </div>
-        </form>
+            </form>
     ';
     }
 
@@ -76,7 +83,7 @@ class Mapel extends CI_Controller
 
     public function delete($id_mapel)
     {
-        $deleteMapel = $this->MapelModel->deleteData('tb_mapel', array('id_mapel' => $id_mapel));
+        $deleteMapel = $this->MapelModel->deleteData('tb_mapel', array('id_mapel' => $id_mapel), $data);
         redirect('mapel');
         return $delete;
     }
